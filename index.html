@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mundo Cúbico – Guías de Minecraft para survival y creativo</title>
+<meta name="description" content="Guías paso a paso de Minecraft: supervivencia, creativo, redstone, construcción, comandos y datos útiles.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#17120d;--panel:#241b13;--line:#3a2b1d;--txt:#f2ead9;--mut:#b9a98f;--grass:#6fcf3e;--dia:#4be3d8;--lava:#ff7a1a;--px:'Press Start 2P',monospace;--body:'Nunito',system-ui,sans-serif}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font:17px/1.65 var(--body);-webkit-font-smoothing:antialiased}
+a{color:var(--dia)}
+:focus-visible{outline:3px solid var(--dia);outline-offset:2px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+header{border-bottom:4px solid var(--line);background:#1d150e;position:sticky;top:0;z-index:20}
+header .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-top:12px;padding-bottom:12px;flex-wrap:wrap}
+.logo{font:14px/1 var(--px);color:var(--grass);text-decoration:none}
+nav a{color:var(--txt);text-decoration:none;margin-left:18px;font-weight:700}
+nav a:hover{color:var(--grass)}
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:24px;align-items:center;padding:56px 0 32px}
+h1{font:clamp(20px,3.6vw,34px)/1.5 var(--px);margin-bottom:20px}
+.hero p{color:var(--mut);max-width:52ch;margin-bottom:26px;font-size:19px}
+.btn{display:inline-block;font:12px/1 var(--px);padding:14px 16px;text-decoration:none;color:#10260a;background:var(--grass);box-shadow:4px 4px 0 #0e0a07;margin:0 10px 12px 0;border:0;cursor:pointer}
+.btn.alt{background:var(--dia);color:#06302d}
+.btn:active{transform:translate(2px,2px);box-shadow:2px 2px 0 #0e0a07}
+.scene{position:relative;height:380px;display:grid;place-items:center;perspective:1000px}
+.bob{animation:bob 4s ease-in-out infinite}
+.cube{--s:170px;width:var(--s);height:var(--s);position:relative;transform-style:preserve-3d;animation:spin 16s linear infinite;will-change:transform}
+.cube i{position:absolute;inset:0;background-size:100% 100%;image-rendering:pixelated;border:2px solid rgba(0,0,0,.3)}
+.cube .f{transform:translateZ(calc(var(--s)/2))}
+.cube .b{transform:rotateY(180deg) translateZ(calc(var(--s)/2));filter:brightness(.8)}
+.cube .r{transform:rotateY(90deg) translateZ(calc(var(--s)/2));filter:brightness(.85)}
+.cube .l{transform:rotateY(-90deg) translateZ(calc(var(--s)/2));filter:brightness(.75)}
+.cube .t{transform:rotateX(90deg) translateZ(calc(var(--s)/2))}
+.cube .d{transform:rotateX(-90deg) translateZ(calc(var(--s)/2));filter:brightness(.5)}
+.mini{position:absolute}
+.mini .cube{--s:54px;animation-duration:9s}
+.m1{left:6%;top:14%}.m2{right:4%;bottom:12%}.m2 .bob,.m2 .cube{animation-delay:-2s}.m3{right:16%;top:6%}.m3 .cube{--s:40px;animation-direction:reverse}
+@keyframes spin{from{transform:rotateX(-24deg) rotateY(0)}to{transform:rotateX(-24deg) rotateY(360deg)}}
+@keyframes bob{50%{transform:translateY(-14px)}}
+.ad{margin:28px 0;min-height:100px;border:2px dashed var(--line);display:grid;place-items:center;color:var(--mut);font-size:14px;text-align:center;overflow:hidden}
+.ad::before{content:"Publicidad";display:block;font-size:11px;color:var(--mut)}
+section{padding:36px 0}
+h2{font:clamp(14px,2.4vw,20px)/1.6 var(--px);margin-bottom:8px}
+.sub{color:var(--mut);margin-bottom:22px}
+.bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:22px}
+.tab{font:11px/1 var(--px);padding:12px 14px;background:var(--panel);color:var(--txt);border:3px solid var(--line);cursor:pointer}
+.tab[aria-pressed=true]{background:var(--grass);color:#10260a;border-color:#3d8a1d}
+.bar input{flex:1;min-width:180px;padding:11px 14px;background:#120d09;border:3px solid var(--line);color:var(--txt);font:inherit}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:18px}
+.card{background:var(--panel);border:3px solid var(--line);box-shadow:5px 5px 0 #0e0a07;padding:18px}
+.card .top{display:flex;gap:14px;align-items:center;margin-bottom:10px}
+.card canvas{width:48px;height:48px;image-rendering:pixelated;flex:none;border:2px solid #0e0a07}
+.card h3{font:11px/1.6 var(--px)}
+.tag{display:inline-block;font-size:12px;font-weight:700;padding:1px 8px;margin-top:4px}
+.tag.s{background:#2d4a1d;color:#a6f07f}.tag.c{background:#0f4743;color:#8ff4ec}
+.card p{color:var(--mut);font-size:15px}
+details{margin-top:10px;border-top:2px solid var(--line);padding-top:8px}
+summary{cursor:pointer;font-weight:700;color:var(--grass)}
+details ol,details ul{padding-left:20px;margin-top:8px;font-size:15px}
+details li{margin-bottom:6px}
+code{background:#120d09;padding:1px 6px;color:var(--lava);font-size:.92em}
+.feed{grid-column:1/-1}
+.facts{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px}
+.fact{border-left:6px solid var(--lava);background:var(--panel);padding:14px 16px}
+.fact b{display:block;color:var(--lava);font:11px/1.6 var(--px);margin-bottom:6px}
+.fact span{font-size:15px;color:var(--mut)}
+.empty{grid-column:1/-1;padding:30px;text-align:center;color:var(--mut)}
+footer{border-top:4px solid var(--line);margin-top:30px;padding:26px 0 40px;color:var(--mut);font-size:14px}
+footer a{margin-right:14px}
+@media(max-width:820px){.hero{grid-template-columns:1fr;padding-top:34px}.scene{height:300px}.cube{--s:130px}nav a{margin:0 14px 0 0}}
+@media(prefers-reduced-motion:reduce){.cube,.bob{animation:none!important}.cube{transform:rotateX(-24deg) rotateY(35deg)}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <a class="logo" href="#">MUNDO CÚBICO</a>
+  <nav aria-label="Principal"><a href="#guias">Guías</a><a href="#datos">Datos</a><a href="#legal">Privacidad</a></nav>
+</div></header>
+
+<main class="wrap">
+  <div class="hero">
+    <div>
+      <h1>Guías de Minecraft que sí puedes seguir</h1>
+      <p>Pasos claros para sobrevivir tu primera noche, encontrar diamantes, llegar al Nether, dominar la redstone y construir en creativo.</p>
+      <a class="btn" href="#guias" data-go="survival">Guías de survival</a>
+      <a class="btn alt" href="#guias" data-go="creativo">Guías de creativo</a>
+    </div>
+    <div class="scene" id="scene" aria-hidden="true"></div>
+  </div>
+
+  <div class="ad" id="ad-top"></div>
+
+  <section id="guias">
+    <h2>Todas las guías</h2>
+    <p class="sub">Elige tu modo o busca por palabra: diamantes, redstone, casa, comandos…</p>
+    <div class="bar">
+      <button class="tab" data-f="todas" aria-pressed="true">Todas</button>
+      <button class="tab" data-f="survival" aria-pressed="false">Survival</button>
+      <button class="tab" data-f="creativo" aria-pressed="false">Creativo</button>
+      <input id="q" type="search" placeholder="Buscar guía" aria-label="Buscar guía">
+    </div>
+    <div class="grid" id="grid" aria-live="polite"></div>
+  </section>
+
+  <section id="datos">
+    <h2>Datos rápidos</h2>
+    <p class="sub">Cosas que conviene saber antes de abrir el mundo.</p>
+    <div class="facts" id="facts"></div>
+  </section>
+
+  <div class="ad" id="ad-foot"></div>
+</main>
+
+<footer id="legal"><div class="wrap">
+  <p><a href="#">Política de privacidad</a><a href="#">Aviso legal</a><a href="#">Contacto</a></p>
+  <p style="margin-top:8px">Sitio de fans, no afiliado a Mojang ni a Microsoft. Minecraft es una marca de Mojang AB.</p>
+</div></footer>
+
+<script>
+/* ===== CONFIGURACIÓN DE ADSENSE =====
+   1) Cambia client por tu ID (ca-pub-...) y los slots por los de tus bloques de anuncios.
+   2) Mientras tenga "XXXX" se muestran huecos de ejemplo y no se carga nada de Google. */
+const ADS={client:'ca-pub-XXXXXXXXXXXXXXXX',slots:{top:'1111111111',feed:'2222222222',foot:'3333333333'}};
+const live=!ADS.client.includes('XXXX');
+function adEl(k){const d=document.createElement('div');if(live){d.innerHTML='<ins class="adsbygoogle" style="display:block;width:100%" data-ad-client="'+ADS.client+'" data-ad-slot="'+ADS.slots[k]+'" data-ad-format="auto" data-full-width-responsive="true"></ins>'}else{d.textContent='Espacio publicitario ('+k+')'}return d}
+function mountAd(box,k){const e=adEl(k);box.appendChild(e);return e}
+if(live){const s=document.createElement('script');s.async=true;s.crossOrigin='anonymous';s.src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client='+ADS.client;document.head.appendChild(s)}
+const push=()=>{if(live)try{(window.adsbygoogle=window.adsbygoogle||[]).push({})}catch(e){}};
+
+/* ===== TEXTURAS PIXEL GENERADAS (sin imágenes externas) ===== */
+const TX={grass:{p:['#5aa83a','#4f9a32','#67b843','#468a2b']},dirt:{p:['#7a5230','#6b4527','#8a5e38','#5c3a20']},stone:{p:['#8b8b8b','#7d7d7d','#999','#717171']},diamond:{p:['#8b8b8b','#7d7d7d','#999','#717171'],sp:'#4be3d8'},redstone:{p:['#8b8b8b','#7d7d7d','#999','#717171'],sp:'#d62b2b'},gold:{p:['#8b8b8b','#7d7d7d','#999','#717171'],sp:'#f5c542'},lava:{p:['#ff7a1a','#ffb13b','#e0480a','#ff9a2e']},wood:{p:['#8a6a3a','#7b5c30','#9a7845','#6c4f28']},obsidian:{p:['#1a1326','#241a35','#120c1c','#2c2042']}};
+const cache={};
+function tex(k){if(cache[k])return cache[k];const c=document.createElement('canvas');c.width=c.height=16;const x=c.getContext('2d');let s=[...k].reduce((a,ch)=>a+ch.charCodeAt(0),7);const r=()=>(s=(s*9301+49297)%233280)/233280;const T=k==='grassSide'?TX.dirt:TX[k];for(let j=0;j<16;j++)for(let i=0;i<16;i++){let col=T.p[Math.floor(r()*T.p.length)];if(T.sp&&r()<.13)col=T.sp;x.fillStyle=col;x.fillRect(i,j,1,1)}
+if(k==='grassSide'){for(let i=0;i<16;i++){const h=3+(r()<.5?1:0)+(r()<.2?1:0);for(let j=0;j<h;j++){x.fillStyle=TX.grass.p[Math.floor(r()*4)];x.fillRect(i,j,1,1)}}}
+return cache[k]=c}
+const url=k=>'url('+tex(k).toDataURL()+')';
+function cube(k,cls){const w=document.createElement('div');w.className='cube';const g=k==='grass';
+ [['f','side'],['b','side'],['r','side'],['l','side'],['t','top'],['d','bot']].forEach(([f,t])=>{const i=document.createElement('i');i.className=f;i.style.backgroundImage=url(g?(t==='top'?'grass':t==='bot'?'dirt':'grassSide'):k);w.appendChild(i)});return w}
+function addCube(parent,k,cls){const m=document.createElement('div');m.className=cls;const b=document.createElement('div');b.className='bob';b.appendChild(cube(k));m.appendChild(b);parent.appendChild(m);return m}
+const scene=document.getElementById('scene');
+const main=document.createElement('div');main.className='bob';main.appendChild(cube('grass'));scene.appendChild(main);
+addCube(scene,'diamond','mini m1');addCube(scene,'lava','mini m2');addCube(scene,'redstone','mini m3');
+
+/* ===== CONTENIDO ===== */
+const G=[
+{m:'survival',k:'wood',t:'Tu primera noche',d:'Lo mínimo para llegar vivo al amanecer.',b:'<ol><li>Rompe 4-5 troncos y fabrica una mesa de crafteo.</li><li>Haz pico, hacha y espada de madera; luego pico de piedra.</li><li>Recoge carbón y crea antorchas (<code>carbón + palo</code>).</li><li>Excava en una colina y tapa la entrada, o construye un refugio cerrado.</li><li>Con 3 lanas y 3 tablones haces una cama: duerme y salta la noche.</li></ol>'},
+{m:'survival',k:'grass',t:'Granja de comida',d:'Que el hambre no vuelva a ser un problema.',b:'<ol><li>Labra tierra con una azada y planta semillas de trigo.</li><li>Pon agua a 4 bloques como máximo de cada cultivo.</li><li>Usa harina de hueso para acelerar el crecimiento.</li><li>Cría vacas, cerdos y gallinas con trigo, zanahorias o semillas.</li><li>Cocina la carne en horno o ahumador: da mucha más saciedad.</li></ol>'},
+{m:'survival',k:'diamond',t:'Encontrar diamantes',d:'Dónde cavar en las versiones modernas.',b:'<ol><li>Necesitas pico de hierro como mínimo.</li><li>Baja hasta la capa Y -59 (mira tus coordenadas con <code>F3</code> en Java).</li><li>Excava túneles de 2 de alto, separados 3 bloques entre sí.</li><li>Lleva cubo de agua: la lava es habitual en las capas más bajas.</li><li>Los diamantes aparecen en vetas pequeñas; revisa también las cuevas abiertas.</li></ol>'},
+{m:'survival',k:'obsidian',t:'Ir al Nether',d:'Portal, preparativos y primeros pasos.',b:'<ol><li>Consigue 10 bloques de obsidiana (mínimo) y un mechero.</li><li>Construye un marco de 4 de ancho por 5 de alto; las esquinas pueden quedar vacías.</li><li>Enciéndelo con el mechero.</li><li>Lleva comida, bloques, un pico y alguna pieza de armadura de oro para los piglins.</li><li>Deja una cama o referencia para no perder el portal de vuelta.</li></ol>'},
+{m:'survival',k:'gold',t:'Aldeanos y comercio',d:'Esmeraldas, libros y descuentos.',b:'<ol><li>Protege la aldea con antorchas y vallas para evitar zombis.</li><li>Cultiva zanahorias o patatas: los aldeanos se agrupan y crían.</li><li>Dale a cada aldeano un bloque de trabajo para asignarle profesión.</li><li>Cura a un zombi aldeano con poción de debilidad y manzana dorada para bajar precios.</li><li>El bibliotecario ofrece libros encantados: ¡mira sus ofertas!</li></ol>'},
+{m:'survival',k:'redstone',t:'Mesa de encantamientos',d:'Equipo mucho mejor con pocos materiales.',b:'<ol><li>Crea la mesa con 1 libro, 2 diamantes y 4 obsidianas.</li><li>Coloca estanterías a distancia de un bloque alrededor de la mesa.</li><li>Con 15 estanterías puedes llegar al nivel 30.</li><li>Cada encantamiento gasta lapislázuli y niveles de experiencia.</li><li>Combina objetos en el yunque para unir encantamientos.</li></ol>'},
+{m:'creativo',k:'stone',t:'Vuelo y comandos básicos',d:'Muévete rápido por tu mundo.',b:'<ul><li><code>/gamemode creative</code> cambia al modo creativo.</li><li>Pulsa dos veces el espacio para volar.</li><li><code>/time set day</code> pone el día.</li><li><code>/gamerule doDaylightCycle false</code> detiene el ciclo.</li><li><code>/tp x y z</code> te lleva a unas coordenadas.</li></ul>'},
+{m:'creativo',k:'dirt',t:'Rellenar y clonar',d:'Construye en segundos con /fill y /clone.',b:'<ol><li>Anota dos esquina
